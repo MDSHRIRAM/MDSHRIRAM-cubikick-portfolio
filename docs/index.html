@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover"
+    />
+    <meta name="theme-color" content="#1d1a2f" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="description" content="Cubikick! A silent cartoon office comedy: send the boss flying." />
+    <title>Cubikick!</title>
+    <link rel="icon" href="data:," />
+    <!-- CrazyGames SDK v3. "defer" runs it before the game's own script (also deferred, and later in the page) without
+         blocking the first paint. Harmless anywhere else: the game checks for it and carries on without it. -->
+    <style>html,body{background:#1d1a2f;height:100%;margin:0}#boot{z-index:50;color:#fffaf0;background:radial-gradient(circle at 50% 35%,#3a2f6e 0%,#1d1a2f 70%);flex-direction:column;justify-content:center;align-items:center;gap:14px;font-family:Trebuchet MS,Segoe UI,system-ui,sans-serif;transition:opacity .5s;display:flex;position:fixed;inset:0}#boot.done{opacity:0;pointer-events:none}.boot-logo{letter-spacing:.02em;color:#ff5fa2;-webkit-text-stroke:2px #1d1a2f;text-shadow:4px 4px #0e0c1a;font-size:clamp(32px,9vw,72px);font-weight:900}.boot-mug{background:#fffaf0;border:4px solid #0e0c1a;border-radius:6px 6px 20px 20px;width:54px;height:46px;animation:.7s ease-in-out infinite alternate boot-bob;position:relative}.boot-mug:after{content:"";border:4px solid #0e0c1a;border-left:0;border-radius:0 12px 12px 0;width:14px;height:18px;position:absolute;top:6px;right:-20px}.boot-mug:before{content:"";opacity:.8;background:#fffaf0;border-radius:8px;width:8px;height:14px;animation:1.2s ease-in infinite boot-steam;position:absolute;top:-22px;left:14px}@keyframes boot-bob{to{transform:translateY(-8px)rotate(-4deg)}}@keyframes boot-steam{0%{opacity:.9;transform:translateY(6px)}to{opacity:0;transform:translateY(-12px)}}.boot-bar{background:#0e0c1a;border:4px solid #fffaf0;border-radius:999px;width:min(340px,72vw);height:20px;overflow:hidden}.boot-fill{background:#ffd23f;width:4%;height:100%;transition:width .25s}.boot-pct{opacity:.9;font-size:14px;font-weight:800}.boot-tip{text-align:center;opacity:.85;max-width:min(420px,82vw);min-height:2.6em;font-size:15px;font-weight:700}</style>
+    <script type="module" crossorigin src="./assets/index-XbzjzrlX.js"></script>
+    <link rel="stylesheet" crossorigin href="./assets/index-D2kPZKJe.css">
+  </head>
+  <body>
+    <div id="boot">
+      <div class="boot-logo">CUBIKICK!</div>
+      <div class="boot-mug"></div>
+      <div class="boot-bar"><div class="boot-fill"></div></div>
+      <div class="boot-pct">Loading... 0%</div>
+      <div class="boot-tip"></div>
+    </div>
+    <div id="app"></div>
+    <script>
+      (function () {
+        var boot = document.getElementById('boot');
+        var fill = boot.querySelector('.boot-fill');
+        var pct = boot.querySelector('.boot-pct');
+        var tip = boot.querySelector('.boot-tip');
+        var tips = [
+          'Tip: Jump over the red circle to dodge the Deadline Stamp.',
+          'Tip: Slap in mid-air for a bonus.',
+          'Tip: Coffee mugs restore your Morale.',
+          'Tip: The paper planes fly low. Jump!',
+          'Tip: Hit the dizzy boss before he recovers!',
+          'Tip: Interrupt the boss mid-attack with a good slap.',
+        ];
+        var i = Math.floor(Math.random() * tips.length);
+        tip.textContent = tips[i];
+        var timer = setInterval(function () {
+          i = (i + 1) % tips.length;
+          tip.textContent = tips[i];
+        }, 2600);
+        var shown = 0;
+        window.__boot = {
+          progress: function (p) {
+            shown = Math.max(shown, Math.min(1, p));
+            var v = Math.round(4 + shown * 96);
+            fill.style.width = v + '%';
+            pct.textContent = 'Loading... ' + v + '%';
+          },
+          finish: function () {
+            clearInterval(timer);
+            fill.style.width = '100%';
+            pct.textContent = 'Ready!';
+            boot.classList.add('done');
+            setTimeout(function () {
+              if (boot.parentNode) boot.parentNode.removeChild(boot);
+            }, 700);
+          },
+        };
+      })();
+    </script>
+
+  </body>
+</html>
